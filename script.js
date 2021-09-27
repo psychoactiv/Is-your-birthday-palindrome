@@ -1,8 +1,12 @@
+let input = document.querySelector(".input");
+let btn = document.querySelector("#check");
+let output = document.querySelector(".output");
+let output_2 = document.querySelector(".output_2");
+
+let checkFunc = false;
+
 function reverseStr(str) {
-  let split = str.split("");
-  let reverse = split.reverse();
-  let final = reverse.join("");
-  return final;
+  return str.split("").reverse().join("");
 }
 function isPalindrome(str) {
   let strReversed = reverseStr(str);
@@ -65,42 +69,80 @@ function leapYear(year) {
   return false;
 }
 
+function dayManager(date) {
+  if (checkFunc) {
+    return date - 1;
+  } else {
+    return date + 1;
+  }
+}
+
 function nextDay(date) {
-  day = date.day + 1;
+  day = dayManager(date.day);
   month = date.month;
   year = date.year;
 
   const DaysInMonth = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 
-  if (month === 2) {
-    if (leapYear(year)) {
-      if (day > 29) {
-        month++;
-        day = 1;
+  if (checkFunc) {
+    if (month === 3) {
+      if (leapYear(year)) {
+        if (day < 1) {
+          month--;
+          day = 29;
+        }
+      } else {
+        if (day < 1) {
+          month--;
+          day = 28;
+        }
       }
-    } else {
-      if (day > 28) {
-        month++;
-        day = 1;
-      }
+    } else if (day < 1) {
+      month--;
+      day = DaysInMonth[month - 1];
     }
-  } else if (day > DaysInMonth[month - 1]) {
-    month++;
-    day = 1;
+    if (month < 1) {
+      month = 12;
+      day = 31;
+      year--;
+    }
+    return {
+      day: day,
+      month: month,
+      year: year,
+    };
+  } else {
+    if (month === 2) {
+      if (leapYear(year)) {
+        if (day > 29) {
+          month++;
+          day = 1;
+        }
+      } else {
+        if (day > 28) {
+          month++;
+          day = 1;
+        }
+      }
+    } else if (day > DaysInMonth[month - 1]) {
+      month++;
+      day = 1;
+    }
+    if (month > 12) {
+      month = 1;
+      day = 1;
+      year++;
+    }
+    return {
+      day: day,
+      month: month,
+      year: year,
+    };
   }
-  if (month > 12) {
-    month = 1;
-    day = 1;
-    year++;
-  }
-  return {
-    day: day,
-    month: month,
-    year: year,
-  };
 }
 
 function NextPalindromeday(date) {
+  checkFunc = false;
   let days = 0;
   let nextDate = nextDay(date);
 
@@ -115,9 +157,21 @@ function NextPalindromeday(date) {
   return [days, nextDate];
 }
 
-let input = document.querySelector(".input");
-let btn = document.querySelector("#check");
-let output = document.querySelector(".output");
+function previousPalindromeday(date) {
+  checkFunc = true;
+  let previousDays = 0;
+  let nextDate_2 = nextDay(date);
+
+  while (1) {
+    previousDays++;
+    let CheckPalindromefor = CheckPalindrome(nextDate_2);
+    if (CheckPalindromefor) {
+      break;
+    }
+    nextDate_2 = nextDay(nextDate_2);
+  }
+  return [previousDays, nextDate_2];
+}
 
 function sumUp(e) {
   let str = input.value;
@@ -131,13 +185,26 @@ function sumUp(e) {
     let isPalindrome = CheckPalindrome(date);
 
     if (isPalindrome) {
-      output.innerText = "congrats!! your birthday is a palindrome";
+      winMsg();
     } else {
-      let [days, nextDate] = NextPalindromeday(date);
-
-      output.innerText = `Palindrome next to your birthday is on ${nextDate.day}-${nextDate.month}-${nextDate.year}, sorry, you missed it by ${days} days! `;
+      lostMsg(date);
     }
   }
 }
 
 btn.addEventListener("click", sumUp);
+
+function winMsg() {
+  output.innerText = "congrats!! your birthday is a palindrome";
+  output_2.style.display = "none";
+}
+
+function lostMsg(date) {
+  output_2.style.display = "block";
+  let [days, nextDate] = NextPalindromeday(date);
+  let [previousDays, nextDate_2] = previousPalindromeday(date);
+  let din = days > 1 ? `days` : `day`;
+  let din_2 = previousDays > 1 ? `days` : `day`;
+  output.innerText = `Palindrome next to your birthday is on ${nextDate.day}-${nextDate.month}-${nextDate.year}, sorry, you missed it by ${days} ${din}`;
+  output_2.innerText = `Palindrome prior to your birthday is on ${nextDate_2.day}-${nextDate_2.month}-${nextDate_2.year}, sorry, you missed it by ${previousDays} ${din_2}`;
+}
