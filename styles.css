@@ -1,0 +1,113 @@
+body {
+  font-family: "Acme", sans-serif;
+  margin: 0px;
+  padding: 0px;
+  box-sizing: border-box;
+  background-color: #fdc1c2;
+  text-align: center;
+}
+nav {
+  background-color: #f72f35;
+  color: white;
+}
+nav li {
+  display: inline-block;
+  font-size: 30px;
+  list-style: none;
+  margin-right: 30px;
+  margin-bottom: 20px;
+}
+nav a {
+  text-decoration: none;
+  color: white;
+  border: 2px solid white;
+  border-radius: 8px;
+  padding: 7px;
+  width: 30px;
+}
+nav li:hover {
+  color: grey;
+}
+nav a:hover {
+  color: grey;
+  border: 2px solid grey;
+  border-radius: 5px;
+}
+nav h1 {
+  font-size: 70px;
+  margin: 0px;
+}
+footer {
+  background-color: #f72f35;
+  color: white;
+  margin-top: 300px;
+}
+footer h3 {
+  margin: 0px;
+  padding: 0px;
+}
+footer li {
+  text-align: center;
+  display: inline-block;
+  margin-right: 20px;
+}
+.container {
+  color: #631315;
+}
+.container h1 {
+  font-size: 70px;
+}
+input {
+  width: 200px;
+  height: 40px;
+  outline: none;
+  text-align: center;
+  border: 3px solid rgb(88, 15, 15);
+  border-radius: 10px;
+  font-family: "Acme", sans-serif;
+  font-size: 25px;
+  color: brown;
+}
+button {
+  width: 120px;
+  height: 35px;
+  border: 3px solid rgb(88, 15, 15);
+  font-family: "Acme", sans-serif;
+  background-color: white;
+  border-radius: 10px;
+  font-size: 25px;
+  color: brown;
+  padding-bottom: 10px;
+}
+button:hover {
+  background-color: lightcoral;
+  color: white;
+}
+.container h3 {
+  font-size: 35px;
+}
+.output {
+  font-size: 40px;
+}
+.output2 {
+  font-size: 40px;
+}
+.hidden {
+  border-top: 16px solid rgb(148, 95, 95);
+  border-right: 16px solid pink;
+  border-bottom: 16px solid rgb(58, 8, 8);
+  border-left: 16px solid pink;
+  width: 120px;
+  height: 120px;
+  animation: spin 2s linear infinite;
+  border-radius: 50%;
+  margin: 70px auto;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

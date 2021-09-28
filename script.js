@@ -1,7 +1,10 @@
 let input = document.querySelector(".input");
 let btn = document.querySelector("#check");
 let output = document.querySelector(".output");
-let output_2 = document.querySelector(".output_2");
+let output_2 = document.querySelector(".output2");
+let loaderSym = document.querySelector(".loader");
+let loaderClass = document.querySelector(".loaderClass");
+let loaderClass2 = document.querySelector(".loaderClass2");
 
 let checkFunc = false;
 
@@ -195,16 +198,41 @@ function sumUp(e) {
 btn.addEventListener("click", sumUp);
 
 function winMsg() {
-  output.innerText = "congrats!! your birthday is a palindrome";
-  output_2.style.display = "none";
+  var loader = setTimeout(fun1, 0);
+  function fun1() {
+    loaderSym.classList.add("hidden");
+    document.querySelector(".output2").style.display = "none";
+    document.querySelector(".output").style.display = "none";
+    setTimeout(function () {
+      document.querySelector(".output").style.display = "block";
+      loaderSym.classList.remove("hidden");
+      document.querySelector(".output").innerText =
+        "congrats!! your birthday is a palindrome  🎂🎉";
+      document.querySelector(".output2").style.display = "none";
+    }, 4000);
+  }
 }
 
 function lostMsg(date) {
-  output_2.style.display = "block";
-  let [days, nextDate] = NextPalindromeday(date);
-  let [previousDays, nextDate_2] = previousPalindromeday(date);
-  let din = days > 1 ? `days` : `day`;
-  let din_2 = previousDays > 1 ? `days` : `day`;
-  output.innerText = `Palindrome next to your birthday is on ${nextDate.day}-${nextDate.month}-${nextDate.year}, sorry, you missed it by ${days} ${din}`;
-  output_2.innerText = `Palindrome prior to your birthday is on ${nextDate_2.day}-${nextDate_2.month}-${nextDate_2.year}, sorry, you missed it by ${previousDays} ${din_2}`;
+  var loader = setTimeout(fun1, 0);
+  function fun1() {
+    loaderSym.classList.add("hidden");
+    document.querySelector(".output2").style.display = "none";
+    document.querySelector(".output").style.display = "none";
+    setTimeout(function () {
+      loaderSym.classList.remove("hidden");
+      document.querySelector(".output2").style.display = "block";
+      document.querySelector(".output").style.display = "block";
+      let [days, nextDate] = NextPalindromeday(date);
+      let [previousDays, nextDate_2] = previousPalindromeday(date);
+      let din = days > 1 ? `days` : `day`;
+      let din_2 = previousDays > 1 ? `days` : `day`;
+      document.querySelector(
+        ".output"
+      ).innerText = `Palindrome next to your birthday is on ${nextDate.day}-${nextDate.month}-${nextDate.year}, sorry, you missed it by ${days} ${din}`;
+      document.querySelector(
+        ".output2"
+      ).innerText = `Palindrome prior to your birthday was on ${nextDate_2.day}-${nextDate_2.month}-${nextDate_2.year}, sorry, you missed it as well by ${previousDays} ${din_2}`;
+    }, 4000);
+  }
 }
