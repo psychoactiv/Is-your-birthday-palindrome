@@ -182,21 +182,28 @@ function sumUp(e) {
     document.querySelector(".output").innerText = "Date should'nt be empty";
   } else if (str.slice(0, 4) >= 1900 && str.slice(0, 4) <= 2021) {
     let useDate = str.split("-");
-    let date = {
-      day: Number(useDate[2]),
-      month: Number(useDate[1]),
-      year: Number(useDate[0]),
-    };
-    let isPalindrome = CheckPalindrome(date);
+  if (str !== "") {
+    if (str.slice(0, 4) >= 1900 && str.slice(0, 4) <= 2021) {
+      let useDate = str.split("-");
+      let date = {
+        day: Number(useDate[2]),
+        month: Number(useDate[1]),
+        year: Number(useDate[0]),
+      };
+      let isPalindrome = CheckPalindrome(date);
 
-    if (isPalindrome) {
-      winMsg();
+      if (isPalindrome) {
+        winMsg();
+      } else {
+        lostMsg(date);
+      }
     } else {
-      lostMsg(date);
+      document.querySelector(".output").innerText =
+        "Please enter year between 1900 to 2000";
+      document.querySelector(".output2").style.display = "none";
     }
   } else {
-    document.querySelector(".output").innerText =
-      "Please enter date between ";
+    document.querySelector(".output").innerText = "Please enter the Date value";
     document.querySelector(".output2").style.display = "none";
   }
 }
@@ -227,7 +234,7 @@ function lostMsg(date) {
     document.querySelector(".output").style.display = "none";
     setTimeout(function () {
       loaderSym.classList.remove("hidden");
-      document.querySelector(".output2").style.display = "none"; //block
+      document.querySelector(".output2").style.display = "block";
       document.querySelector(".output").style.display = "block";
       let [days, nextDate] = NextPalindromeday(date);
       let [previousDays, nextDate_2] = previousPalindromeday(date);
