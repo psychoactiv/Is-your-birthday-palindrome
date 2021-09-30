@@ -178,10 +178,6 @@ function previousPalindromeday(date) {
 
 function sumUp(e) {
   let str = input.value;
-  if (str === "") {
-    document.querySelector(".output").innerText = "Date should'nt be empty";
-  } else if (str.slice(0, 4) >= 1900 && str.slice(0, 4) <= 2021) {
-    let useDate = str.split("-");
   if (str !== "") {
     if (str.slice(0, 4) >= 1900 && str.slice(0, 4) <= 2021) {
       let useDate = str.split("-");
