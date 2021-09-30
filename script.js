@@ -196,7 +196,7 @@ function sumUp(e) {
     }
   } else {
     document.querySelector(".output").innerText =
-      "Please enter date between 1900-12-31 to 2021-12-31";
+      "Please enter date between ";
     document.querySelector(".output2").style.display = "none";
   }
 }
@@ -227,7 +227,7 @@ function lostMsg(date) {
     document.querySelector(".output").style.display = "none";
     setTimeout(function () {
       loaderSym.classList.remove("hidden");
-      document.querySelector(".output2").style.display = "block";
+      document.querySelector(".output2").style.display = "none"; //block
       document.querySelector(".output").style.display = "block";
       let [days, nextDate] = NextPalindromeday(date);
       let [previousDays, nextDate_2] = previousPalindromeday(date);
