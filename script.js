@@ -178,7 +178,9 @@ function previousPalindromeday(date) {
 
 function sumUp(e) {
   let str = input.value;
-  if (str !== "") {
+  if (str === "") {
+    document.querySelector(".output").innerText = "Date should'nt be empty";
+  } else if (str.slice(0, 4) >= 1900 && str.slice(0, 4) <= 2021) {
     let useDate = str.split("-");
     let date = {
       day: Number(useDate[2]),
@@ -192,6 +194,10 @@ function sumUp(e) {
     } else {
       lostMsg(date);
     }
+  } else {
+    document.querySelector(".output").innerText =
+      "Please enter date between 1900-12-31 to 2021-12-31";
+    document.querySelector(".output2").style.display = "none";
   }
 }
 
